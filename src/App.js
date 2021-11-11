@@ -5,12 +5,13 @@ import Searchbar from 'components/Searchbar';
 import Button from 'components/Button';
 import ImageGallery from 'components/ImageGallery';
 import ImageGalleryItem from 'components/ImageGalleryItem';
+import MyLoader from 'components/Loader/Loader';
 import './styles.css';
 
 
 class App extends React.Component {
   state = {
-    showModal: true
+    showModal: false
   };
 
   toggleModal = () => {
@@ -29,8 +30,9 @@ class App extends React.Component {
         <ImageGallery />
         <ImageGalleryItem />
         {showModal && <Modal />}
+        <MyLoader />
         <Button/>
-    </>
+      </>
     )
    }
 }
