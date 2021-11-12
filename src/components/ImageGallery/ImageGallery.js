@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import s from './ImageGallery.module.css'
+import PropTypes from 'prop-types';
 
-export default class ImageGallery extends Component{
-    render() {
-        return (
-            <ul className={s.ImageGallery}></ul>
-        )
-    }
+export default function ImageGallery({ children }) {
+    
+    return (
+        <ul className={s.ImageGallery}>{ children }</ul>
+    )
 }
+
+ImageGallery.propTypes = {
+  children: PropTypes.node,
+};

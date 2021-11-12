@@ -6,13 +6,33 @@ import Button from 'components/Button';
 import ImageGallery from 'components/ImageGallery';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import MyLoader from 'components/Loader/Loader';
+
+import { fetchPagesList } from 'services/PixaBayView';
 import './styles.css';
+
 
 
 class App extends React.Component {
   state = {
-    showModal: false
+    hits: [],
+    currentPage: 1,
+    searchQuery: '',
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.searchQuery !== this.props.searchQuery) {
+      fetch()
+    }
+   }
+
+  onChangeQuery = query => {
+    this.setState({
+      searchQuery: query,
+      currentPage: 1,
+      showModal: false,
+
+    })
+  }
 
   toggleModal = () => {
     this.setState(({ showModal }) => ({
@@ -22,17 +42,29 @@ class App extends React.Component {
   
 
   render() {
-    const { showModal } = this.state
+    const { hits, showModal } = this.state
     
     return (
-      <>
-        <Searchbar />
-        <ImageGallery />
-        <ImageGalleryItem />
-        {showModal && <Modal />}
+      <div className={App}>
+        
+        <Searchbar onSubmit={this.onChangeQuery} />
+
+        <ImageGallery>
+          {hits.map(hit => (
+            <ImageGalleryItem
+              key={hit.id}
+              hit={hit}
+              setLargeImg={this.setLargeImg}
+            />
+          ))}
+        </ImageGallery>
+
         <MyLoader />
-        <Button/>
-      </>
+
+        <Button />
+        
+        {showModal && <Modal onClose={this.toggleModal} />}
+      </div>
     )
    }
 }
