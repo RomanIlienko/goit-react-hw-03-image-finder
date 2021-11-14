@@ -1,13 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import s from './ImageGalleryItem.module.css'
 import PropTypes from 'prop-types'
 
-export default class ImageGalleryItem extends Component {
-    render() {
-        return (
-        <li className={s.ImageGalleryItem}>
-            <img src="" alt="" className={s.ImageGalleryItemImage} />
-        </li>
-        )
-    }
-}
+
+const ImageGalleryItem = ({ hit, setLargeImg }) => {
+  const { webformatURL, tags } = hit;
+
+  return (
+    <li className={s.ImageGalleryItem} onClick={() => setLargeImg(hit)}>
+      <img src={webformatURL} alt={tags} className={s.ImageGalleryItemImage} />
+    </li>
+  );
+};
+
+ImageGalleryItem.propTypes = {
+  hit: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  }).isRequired,
+  setLargeImg: PropTypes.func.isRequired,
+};
+
+export default ImageGalleryItem;
