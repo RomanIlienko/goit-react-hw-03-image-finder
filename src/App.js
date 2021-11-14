@@ -7,11 +7,9 @@ import ImageGallery from 'components/ImageGallery';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import MyLoader from 'components/Loader/Loader';
 
-import fetchPagesList from 'services/PixaBayView';
+import { fetchPagesList } from 'services/PixaBayView';
+
 import s from './App.module.css';
-
-
-
 
 class App extends React.Component {
   state = {
