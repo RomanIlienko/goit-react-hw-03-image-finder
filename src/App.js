@@ -6,10 +6,9 @@ import Button from 'components/Button';
 import ImageGallery from 'components/ImageGallery';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import MyLoader from 'components/Loader/Loader';
+import Error from 'components/Error/Error';
 
 import { fetchPagesList } from 'services/PixaBayView';
-
-import s from './App.module.css';
 
 class App extends React.Component {
   state = {
@@ -56,7 +55,7 @@ class App extends React.Component {
           currentPage: prevState.currentPage + 1,
         }));
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => this.setState({ error: "Something went wrong. Try again." }))
       .finally(() => {
         this.setState({ isLoading: false });
 
@@ -83,11 +82,13 @@ class App extends React.Component {
     const shouldRenderLoadMoreButton = hits.length > 0 && !isLoading;
     
     return (
-      <div className={s.App}>
-        { error && <h1>Oops</h1>}
+      <>
         <Searchbar onSubmit={this.onChangeQuery} />
 
-        <ImageGallery>
+          { error && <Error textError={error} />}
+
+        {hits.length > 0 && !error && 
+          <ImageGallery>
           {hits.map(hit => (
             <ImageGalleryItem
               key={hit.id}
@@ -96,13 +97,14 @@ class App extends React.Component {
             />
           ))}
         </ImageGallery>
-
+        }
+        
         {isLoading && <MyLoader />}
 
         {shouldRenderLoadMoreButton && <Button loadMore={this.fetchPages} />}
         
         {showModal && <Modal largeImgUrl={selectedImg} onClose={this.toggleModal} />}
-      </div>
+      </>
     )
    }
 }

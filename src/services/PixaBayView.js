@@ -9,6 +9,7 @@ function fetchPagesList({ searchQuery = '', currentPage = 1, perPage = 12 }) {
       `${BASE_URL}?q=${searchQuery}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`,
     )
     .then(response => response.data.hits)
+    .catch(error => console.log(error));
   
 }
 export { fetchPagesList };

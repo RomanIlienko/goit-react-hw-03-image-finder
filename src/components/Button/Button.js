@@ -4,9 +4,11 @@ import s from './Button.module.css'
 
 const Button = ({ loadMore }) => {
   return (
-    <button type="button" className={s.Button} onClick={loadMore}>
+    <div className={s.Wrapper}>
+     <button type="button" className={s.Button} onClick={loadMore}>
       Load more
-    </button>
+     </button>
+    </div>
   );
 };
 
